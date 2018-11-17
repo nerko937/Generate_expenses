@@ -1,0 +1,20 @@
+{% extends "main.html" %}
+{% block body %}
+<form action="/add-expenses" method="POST">
+    <label id="form_box">
+        <select name="category" class="bar">
+            {% for row in category_names %}
+                <option value="{{ row[0] }}">{{ row[1] }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <input type="text" name="name" placeholder="nazwa wydatku">
+        <br>
+        <input type="number" name="expense" placeholder="kwota" step="0.01">
+        <br>
+        <input type="date" name="date">
+        <br>
+        <input type="submit" value="Dodaj" class="bar">
+    </label>
+</form>
+{% endblock %}

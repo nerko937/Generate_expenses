@@ -1,0 +1,113 @@
+body {
+    background-color: #E0F8E0;
+}
+main {
+    width: 600px;
+    height: 200px;
+    background-color: #81F781;
+    color: #2E2E2E;
+
+    position:absolute;
+    left:0; right:0;
+    top:0; bottom:0;
+    margin:auto;
+
+    max-width:100%;
+    max-height:100%;
+    overflow:auto;
+}
+h2 {
+    padding: 8px;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+li {
+    float: left;
+    width: 50%;
+    position: relative;
+}
+
+li a {
+    display: flex;
+    text-align: center;
+    padding: 30px 0px 30px 90px;
+    text-decoration: none;
+    color: #2E2E2E;
+}
+
+li a:hover {
+    background-color: #58FA58;
+}
+
+input {
+    width: 200px;
+    margin-top: 10px;
+}
+
+.bar {
+    width: 216px;
+    margin-top: 10px;
+}
+
+#form_box {
+    width: 256px;
+    height: 227px;
+    background-color: #81F781;
+
+    position:absolute;
+    left:0; right:0;
+    top:0; bottom:0;
+    margin:auto;
+
+    max-width:100%;
+    max-height:100%;
+    overflow:auto;
+}
+
+label {
+    padding-top: 20px;
+    display: block;
+    text-align: center;
+    line-height: 150%;
+}
+
+#list_page {
+    padding-top: 30px;
+    width: 750px;
+    background-color: #81F781;
+    color: #2E2E2E;
+}
+
+td {
+    width: 150px;
+    text-align: center;
+    padding: 6px 0px;
+}
+
+footer {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+div {
+    position: relative;
+}
+
+div a {
+    display: flex;
+    text-align: center;
+    padding: 40px 45%;
+    text-decoration: none;
+    color: #2E2E2E;
+}
+
+div a:hover {
+    background-color: #58FA58;
+}
