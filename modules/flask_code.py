@@ -111,5 +111,5 @@ def pdf():
         try:
             return send_file(f'{BASE_DIR}/download/expenses.pdf',
                              attachment_filename='expenses.pdf')
-        except Exception as e:
+        except (FileNotFoundError, OSError) as e:
             return str(e)
