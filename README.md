@@ -1,5 +1,9 @@
 # Generate_expenses
 
+Simple website to manage personal expenses, avaibles to download PDF or exel file with data.
+- Used tools and technologies: Python, Flask, psycopg2, reportlab, XlsxWriter
+
+To run project:
 1. cd to the directory of repository.
 2. activate your virtualenv.
 3. run: `pip install -r requirements.txt` in your shell.
