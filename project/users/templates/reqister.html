@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="columns is-centered is-vcentered" id="login-field">
+  <div class="column is-one-quarter">
+      <div class="card">
+          <header class="card-header has-background-primary">
+            <p class="card-header-title has-text-white">
+              Register
+            </p>
+            <!-- <a href="#" class="card-header-icon" aria-label="more options">
+              <span class="icon">
+                <i class="fas fa-angle-down" aria-hidden="true"></i>
+              </span>
+            </a> -->
+          </header>
+          <div class="card-content">
+            <form method="POST" action="">
+              {{ form.hidden_tag() }}
+              <div class="field">
+                <div class="control">
+                    {% if form.email.errors %}
+                      {{ form.email(class="input is-danger", placeholder="Email") }}
+                      {% for error in form.email.errors %}
+                        <span class="has-text-danger">{{ error }}</span>
+                      {% endfor %}
+                    {% else %}
+                      {{ form.email(class="input", placeholder="Email") }}
+                    {% endif %}
+                </div>
+              </div>
+              <div class="field">
+                <div class="control">
+                    {% if form.password.errors %}
+                      {{ form.password(class="input is-danger", placeholder="Password") }}
+                      {% for error in form.password.errors %}
+                        <span class="has-text-danger">{{ error }}</span>
+                      {% endfor %}
+                    {% else %}
+                      {{ form.password(class="input", placeholder="Passwordl") }}
+                    {% endif %}
+                </div>
+              </div>
+              <div class="field">
+                <div class="control">
+                    {% if form.confirm_password.errors %}
+                      {{ form.confirm_password(class="input is-danger", placeholder="Confirm password") }}
+                      {% for error in form.confirm_password.errors %}
+                        <span class="has-text-danger">{{ error }}</span>
+                      {% endfor %}
+                    {% else %}
+                      {{ form.confirm_password(class="input", placeholder="Confirm passwordl") }}
+                    {% endif %}
+                </div>
+              </div>
+              {{ form.submit(class="button is-primary is-fullwidth") }}
+            </form>
+          </div>
+        </div>
+  </div>
+</div>
+
+{% endblock content %}
