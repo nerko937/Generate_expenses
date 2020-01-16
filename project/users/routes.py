@@ -43,9 +43,9 @@ def register():
 
 @users.route("/logout")
 def logout():
-    logout_user()
+	logout_user()
 	return 'Successfuly logged out'
-    # return redirect(url_for('users.login'))
+	# return redirect(url_for('users.login'))
 
 @users.route("/change_password", methods=['GET', 'POST'])
 @login_required
