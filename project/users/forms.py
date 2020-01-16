@@ -3,6 +3,7 @@ from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from flask_login import current_user
+from project import bcrypt
 from .models import User
 
 
@@ -26,6 +27,18 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Remember Me')
     submit = SubmitField('Send')
+
+
+class ChangePasswordForm(FlaskForm):
+    current_password = PasswordField('Old password', validators=[DataRequired()])
+    new_password = PasswordField('New Password', validators=[DataRequired()])
+    confirm_new_password = PasswordField('Confirm new password',
+                                     validators=[DataRequired(), EqualTo('new_password')])
+    submit = SubmitField('Send')
+
+    def check_current_password(self, current_password):
+        if not bcrypt.check_password_hash(current_user.password, current_password.data):
+            raise ValidationError('You provided wrong, current used password.')
 
 
 # class UpdateAccountForm(FlaskForm):
@@ -58,10 +71,3 @@ class LoginForm(FlaskForm):
 #         user = User.query.filter_by(email=email.data).first()
 #         if user is None:
 #             raise ValidationError('There is no account with that email. You must register first.')
-
-
-# class ResetPasswordForm(FlaskForm):
-#     password = PasswordField('Password', validators=[DataRequired()])
-#     confirm_password = PasswordField('Confirm Password',
-#                                      validators=[DataRequired(), EqualTo('password')])
-#     submit = SubmitField('Reset Password')
