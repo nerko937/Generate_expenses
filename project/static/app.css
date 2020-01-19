@@ -8,5 +8,10 @@ body > footer {
 }
 
 #login-field {
-	margin-top: 2em;
+	margin-top: 2rem;
+}
+
+#forgot-pass {
+    margin-top: 1rem;
+    margin-left: 1rem;
 }

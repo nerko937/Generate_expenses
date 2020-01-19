@@ -3,9 +3,9 @@
 <div class="columns is-centered is-vcentered" id="login-field">
   <div class="column is-one-quarter">
     <div class="card">
-      <header class="card-header has-background-success">
+      <header class="card-header has-background-primary">
         <p class="card-header-title has-text-white">
-          Log in
+          Request password reset
         </p>
         <!-- <a href="#" class="card-header-icon" aria-label="more options">
           <span class="icon">
@@ -28,32 +28,9 @@
               {% endif %}
             </div>
           </div>
-          <div class="field">
-            <div class="control">
-              {% if form.password.errors %}
-                {{ form.password(class="input is-danger", placeholder="Password") }}
-                {% for error in form.password.errors %}
-                  <span class="has-text-danger">{{ error }}</span>
-                {% endfor %}
-              {% else %}
-                {{ form.password(class="input", placeholder="Password") }}
-              {% endif %}
-            </div>
-          </div>
-          <div class="field">
-            <div class="control">
-              <label class="checkbox">
-                {{ form.remember }}
-                Remember me
-              </label>
-            </div>
-          </div>
-          {{ form.submit(class="button is-success is-fullwidth") }}
+          {{ form.submit(class="button is-primary is-fullwidth") }}
         </form>
       </div>
-    </div>
-    <div id="forgot-pass">
-      <a id="forgot-pass" href="{{ url_for('users.request_reset') }}">Forgot password?</a>
     </div>
   </div>
 </div>
