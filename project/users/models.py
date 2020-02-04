@@ -2,6 +2,7 @@ from flask import current_app
 from flask_login import UserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from project import db, login_manager
+from project.expenses.models import Month
 
 
 @login_manager.user_loader
@@ -13,6 +14,7 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
+    months = db.relationship('Month', backref='owner', lazy=True)
 
     def get_reset_token(self, expires_sec=60*30):
         s = Serializer(current_app.config['SECRET_KEY'], expires_sec)
