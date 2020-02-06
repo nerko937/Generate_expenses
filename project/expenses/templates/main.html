@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="columns is-1 is-multiline" id="months">
+  {% for user in user_months %}
+    <div class="column is-one-third ">
+      {% if user.year < cr_year or user.year == cr_year and user.month < cr_month %}
+      <div class="has-background-info rounded col-hover">
+      {% else %}
+      <div class="has-background-primary rounded col-hover"></div>
+      {% endif %}
+        <div class="columns is-gapless ">
+          <div class="column is-three-quarters has-text-centered month-margin">
+            <h3 class="is-size-3 has-text-white-ter has-text-weight-semibold">
+              {{ months[user.month - 1] }}
+            </h3 class="">
+            <span class="is-size-5 has-text-white-ter">{{ user.year }}</span>
+          </div>
+          <div class="column btns-margin">
+            <button class="button is-small is-success is-light download-btn btn-space">PDF</button>
+            <button class="button is-small is-success is-light download-btn">XSLX</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+{% endblock content %}

@@ -24,7 +24,9 @@ def create_app(config_class=DevelopmentConfig):
     mail.init_app(app)
 
     from .users.routes import users
+    from .expenses.routes import expenses
     app.register_blueprint(users)
+    app.register_blueprint(expenses)
 
     return app
 

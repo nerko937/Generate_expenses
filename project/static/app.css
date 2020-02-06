@@ -15,3 +15,35 @@ body > footer {
     margin-top: 1rem;
     margin-left: 1rem;
 }
+
+#months {
+    max-width: 80%;
+    margin-left: 10%;
+    margin-top: 2rem;
+}
+
+.btns-margin {
+    margin-top: 0.75rem !important;
+    margin-bottom: 0.75rem !important;
+}
+
+.month-margin {
+    margin-left: 0.75rem !important;
+}
+
+.rounded {
+    border-radius: 5px;
+}
+
+.download-btn {
+    min-width: 54px;
+}
+
+.btn-space {
+    margin-bottom: 0.3rem;
+}
+
+.col-hover:hover {
+    background-color: hsl(141, 71%, 48%) !important;
+    cursor: pointer;
+}
