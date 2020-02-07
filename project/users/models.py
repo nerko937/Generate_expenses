@@ -14,7 +14,7 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
-    months = db.relationship('Month', backref='owner', lazy=True)
+    months = db.relationship('Month', backref='owner', lazy=True, cascade='all, delete-orphan')
 
     def get_reset_token(self, expires_sec=60*30):
         s = Serializer(current_app.config['SECRET_KEY'], expires_sec)

@@ -6,7 +6,9 @@ class Month(db.Model):
 	month = db.Column(db.Integer, nullable=False)
 	year = db.Column(db.Integer)
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-	expenses = db.relationship('Expense', backref='month_related', lazy=True)
+	expenses = db.relationship(
+		'Expense', backref='month_related', lazy=True, cascade='all, delete-orphan'
+	)
 
 	def __repr__(self):
 		return f"Month('{self.id}', '{self.month}-{self.year}')"
