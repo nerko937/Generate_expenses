@@ -1,5 +1,40 @@
 {% extends 'base.html' %}
 {% block content %}
+<form id="months-content" method="POST" action="">
+  {{ form.hidden_tag() }}
+  <div class="field is-horizontal"></div>
+    <div class="field-body">
+      <p class="control">
+        {% if form.year.errors %}
+          {{ form.year(class="input is-danger is-large", placeholder="Year") }}
+        {% else %}
+          {{ form.year(class="input is-large", placeholder="Year") }}
+        {% endif %}
+      </p>
+      <p class="control">
+        {% if form.month.errors %}
+        <span class="select is-large is-danger"></span>
+          {% for error in form.month.errors %}
+            <span class="has-text-danger">{{ error }}</span>
+          {% endfor %}
+        {% else %}
+          <span class="select is-large">
+        {% endif %}
+        {{ form.month(placeholder="Month") }}
+        </span>
+      </p>
+      <p class="control">
+        {{ form.submit(class="button is-primary is-large") }}
+      </p>
+    </div>
+  </div>
+  <div class="has-text-centered">
+    {% for error in form.year.errors %}
+      <span class="has-text-danger">{{ error }}</span>
+      <br>
+    {% endfor %}
+  </div>
+</form>
 
 <div class="columns is-1 is-multiline" id="months">
   {% for user in user_months %}
@@ -7,7 +42,7 @@
       {% if user.year < cr_year or user.year == cr_year and user.month < cr_month %}
       <div class="has-background-info rounded col-hover">
       {% else %}
-      <div class="has-background-primary rounded col-hover"></div>
+      <div class="has-background-primary rounded col-hover">
       {% endif %}
         <div class="columns is-gapless ">
           <div class="column is-three-quarters has-text-centered month-margin">
@@ -18,7 +53,8 @@
           </div>
           <div class="column btns-margin">
             <button class="button is-small is-success is-light download-btn btn-space">PDF</button>
-            <button class="button is-small is-success is-light download-btn">XSLX</button>
+            <button class="button is-small is-success is-light download-btn btn-space">XSLX</button>
+            <button class="button is-small is-danger is-light download-btn btn-space">Delete</button>
           </div>
         </div>
       </div>

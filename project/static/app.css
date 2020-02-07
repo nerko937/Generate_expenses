@@ -7,8 +7,12 @@ body > footer {
     margin-top: auto;
 }
 
-#login-field {
+#small-content {
 	margin-top: 2rem;
+}
+
+#months-content {
+    margin-top: 5rem;
 }
 
 #forgot-pass {
@@ -19,7 +23,7 @@ body > footer {
 #months {
     max-width: 80%;
     margin-left: 10%;
-    margin-top: 2rem;
+    margin-top: 1.5rem;
 }
 
 .btns-margin {
@@ -29,6 +33,19 @@ body > footer {
 
 .month-margin {
     margin-left: 0.75rem !important;
+}
+
+.field-body {
+    justify-content: center;
+}
+
+.field-body > .control {
+    margin-left: 0.75rem;
+    margin-right: 0.75rem;
+}
+
+#year {
+    max-width: 5.6rem;
 }
 
 .rounded {
