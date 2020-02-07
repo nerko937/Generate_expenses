@@ -7,17 +7,17 @@
         <p class="card-header-title has-text-white">
           Log in
         </p>
-        <!-- <a href="#" class="card-header-icon" aria-label="more options">
-          <span class="icon">
-            <i class="fas fa-angle-down" aria-hidden="true"></i>
+        <div class="card-header-icon">
+          <span class="icon has-text-light">
+            <i class="fas fa-user"></i>
           </span>
-        </a> -->
+        </div>
       </header>
       <div class="card-content">
         <form method="POST" action="">
           {{ form.hidden_tag() }}
           <div class="field">
-            <div class="control">
+            <div class="control has-icons-left">
               {% if form.email.errors %}
                 {{ form.email(class="input is-danger", placeholder="Email") }}
                 {% for error in form.email.errors %}
@@ -26,10 +26,13 @@
               {% else %}
                 {{ form.email(class="input", placeholder="Email") }}
               {% endif %}
+              <span class="icon is-small is-left">
+                <i class="fas fa-envelope"></i>
+              </span>
             </div>
           </div>
           <div class="field">
-            <div class="control">
+            <div class="control has-icons-left">
               {% if form.password.errors %}
                 {{ form.password(class="input is-danger", placeholder="Password") }}
                 {% for error in form.password.errors %}
@@ -38,6 +41,9 @@
               {% else %}
                 {{ form.password(class="input", placeholder="Password") }}
               {% endif %}
+              <span class="icon is-small is-left">
+                <i class="fas fa-key"></i>
+              </span>
             </div>
           </div>
           <div class="field">
@@ -57,5 +63,4 @@
     </div>
   </div>
 </div>
-
 {% endblock content %}

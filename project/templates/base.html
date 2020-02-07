@@ -17,9 +17,14 @@
 <body>
   <nav class="navbar is-info" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <a class="navbar-item has-text-weight-bold is-size-5" href="https://bulma.io">
-        Generate expenses
+      <a class="navbar-item" href="{{ url_for('expenses.main') }}">
+        <span class="icon is-small" id="home-icon">
+          <i class="fas fa-home fa-lg"></i>
+        </span>
       </a>
+      <h1 class="navbar-item has-text-weight-bold is-size-5">
+        Generate expenses
+      </h1>
     </div>
     
     <div class="navbar-menu">

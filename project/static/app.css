@@ -7,6 +7,15 @@ body > footer {
     margin-top: auto;
 }
 
+#home-icon {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.card-header-icon:hover {
+    cursor: default;
+}
+
 #small-content {
 	margin-top: 2rem;
 }
@@ -45,7 +54,7 @@ body > footer {
 }
 
 #year {
-    max-width: 5.6rem;
+    max-width: 8.5rem;
 }
 
 .rounded {

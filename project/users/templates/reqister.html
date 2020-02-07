@@ -7,49 +7,58 @@
             <p class="card-header-title has-text-white">
               Register
             </p>
-            <!-- <a href="#" class="card-header-icon" aria-label="more options">
-              <span class="icon">
-                <i class="fas fa-angle-down" aria-hidden="true"></i>
+            <div class="card-header-icon">
+              <span class="icon has-text-light">
+                <i class="fas fa-user-plus"></i>
               </span>
-            </a> -->
+            </div>
           </header>
           <div class="card-content">
             <form method="POST" action="">
               {{ form.hidden_tag() }}
               <div class="field">
-                <div class="control">
-                    {% if form.email.errors %}
-                      {{ form.email(class="input is-danger", placeholder="Email") }}
-                      {% for error in form.email.errors %}
-                        <span class="has-text-danger">{{ error }}</span>
-                      {% endfor %}
-                    {% else %}
-                      {{ form.email(class="input", placeholder="Email") }}
-                    {% endif %}
+                <div class="control has-icons-left">
+                  {% if form.email.errors %}
+                    {{ form.email(class="input is-danger", placeholder="Email") }}
+                    {% for error in form.email.errors %}
+                      <span class="has-text-danger">{{ error }}</span>
+                    {% endfor %}
+                  {% else %}
+                    {{ form.email(class="input", placeholder="Email") }}
+                  {% endif %}
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                  </span>
                 </div>
               </div>
               <div class="field">
-                <div class="control">
-                    {% if form.password.errors %}
-                      {{ form.password(class="input is-danger", placeholder="Password") }}
-                      {% for error in form.password.errors %}
-                        <span class="has-text-danger">{{ error }}</span>
-                      {% endfor %}
-                    {% else %}
-                      {{ form.password(class="input", placeholder="Passwordl") }}
-                    {% endif %}
+                <div class="control has-icons-left">
+                  {% if form.password.errors %}
+                    {{ form.password(class="input is-danger", placeholder="Password") }}
+                    {% for error in form.password.errors %}
+                      <span class="has-text-danger">{{ error }}</span>
+                    {% endfor %}
+                  {% else %}
+                    {{ form.password(class="input", placeholder="Password") }}
+                  {% endif %}
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-key"></i>
+                  </span>
                 </div>
               </div>
               <div class="field">
-                <div class="control">
-                    {% if form.confirm_password.errors %}
-                      {{ form.confirm_password(class="input is-danger", placeholder="Confirm password") }}
-                      {% for error in form.confirm_password.errors %}
-                        <span class="has-text-danger">{{ error }}</span>
-                      {% endfor %}
-                    {% else %}
-                      {{ form.confirm_password(class="input", placeholder="Confirm passwordl") }}
-                    {% endif %}
+                <div class="control has-icons-left">
+                  {% if form.confirm_password.errors %}
+                    {{ form.confirm_password(class="input is-danger", placeholder="Confirm password") }}
+                    {% for error in form.confirm_password.errors %}
+                      <span class="has-text-danger">{{ error }}</span>
+                    {% endfor %}
+                  {% else %}
+                    {{ form.confirm_password(class="input", placeholder="Confirm password") }}
+                  {% endif %}
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-key"></i>
+                  </span>
                 </div>
               </div>
               {{ form.submit(class="button is-primary is-fullwidth") }}
