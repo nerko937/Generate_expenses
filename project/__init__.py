@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
+from flask_talisman import Talisman
 from .config import DevelopmentConfig
 
 
@@ -12,7 +13,17 @@ login_manager = LoginManager()
 login_manager.login_view = 'users.login'
 # login_manager.login_message_category = 'info'
 mail = Mail()
+talisman = Talisman()
 
+csp = {
+    'default-src': [
+        '\'self\'',
+        '\'unsafe-inline\'',
+        'cdn.jsdelivr.net',
+        'use.fontawesome.com'
+    ],
+    'script-src': ['\'self\'', 'use.fontawesome.com']
+}
 
 def create_app(config_class=DevelopmentConfig):
     app = Flask(__name__)
