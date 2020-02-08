@@ -33,7 +33,10 @@ def create_app(config_class=DevelopmentConfig):
     bcrypt.init_app(app)
     login_manager.init_app(app)
     mail.init_app(app)
-
+    talisman.init_app(
+        app, content_security_policy=csp, content_security_policy_nonce_in=['script-src']
+    )
+    
     from .users.routes import users
     from .expenses.routes import expenses
     app.register_blueprint(users)
