@@ -4,7 +4,7 @@ from project import db
 class Month(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	month = db.Column(db.Integer, nullable=False)
-	year = db.Column(db.Integer)
+	year = db.Column(db.Integer, nullable=False)
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 	expenses = db.relationship(
 		'Expense', backref='month_related', lazy=True, cascade='all, delete-orphan'
