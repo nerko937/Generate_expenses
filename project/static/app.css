@@ -61,15 +61,7 @@ body > footer {
     border-radius: 5px;
 }
 
-.download-btn {
-    min-width: 54px;
-}
-
-.btn-space {
-    margin-bottom: 0.3rem;
-}
-
 .col-hover:hover {
-    background-color: hsl(141, 71%, 48%) !important;
+    background-color: hsla(242, 100%, 0%, 0.05);
     cursor: pointer;
 }
