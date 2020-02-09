@@ -8,17 +8,22 @@ window.addEventListener('DOMContentLoaded', (event) => {
       const className = column.classList.contains('has-background-info')
         ? 'has-text-info' : 'has-text-primary'
       const span = element.querySelector('span')
-      element.addEventListener('click', (event) => {
-        element.classList.add('is-active')
-      })
       element.addEventListener('mouseenter', (event) => {
-        span.classList.add(className)
+        element.classList.toggle('is-active')
+        span.classList.toggle(className)
       })
       element.addEventListener('mouseleave', (event) => {
-        element.classList.remove('is-active')
-        span.classList.remove(className)
+        element.classList.toggle('is-active')
+        span.classList.toggle(className)
+      })
+      const dropdownMenu = element.querySelector('.dropdown-menu')
+      dropdownMenu.addEventListener('mouseenter', (event) => {
+        span.classList.toggle(className)
+      })
+      dropdownMenu.addEventListener('mouseleave', (event) => {
+        span.classList.toggle(className)
       })
     })
-    
+
   }
 })
