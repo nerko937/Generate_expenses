@@ -19,8 +19,7 @@ csp = {
     'default-src': [
         '\'self\'',
         '\'unsafe-inline\'',
-        'cdn.jsdelivr.net',
-        'use.fontawesome.com'
+        'cdn.jsdelivr.net'
     ],
     'script-src': ['\'self\'', 'use.fontawesome.com']
 }
