@@ -27,7 +27,7 @@
         </span>
       </p>
       <p class="control">
-        {{ form.submit(class="button is-primary is-large") }}
+        {{ form.submit(class="button is-info is-large") }}
       </p>
     </div>
   </div>
@@ -43,20 +43,42 @@
   {% for user in user_months %}
     <div class="column is-one-third ">
       {% if user.year < cr_year or user.year == cr_year and user.month < cr_month %}
-      <div class="has-background-info rounded col-hover">
+      <div class="has-background-info rounded">
       {% else %}
-      <div class="has-background-primary rounded col-hover">
+      <div class="has-background-primary rounded">
       {% endif %}
-        <div class="columns is-gapless ">
-          <div class="column is-three-quarters has-text-centered month-margin">
-            <h3 class="is-size-3 has-text-white-ter has-text-weight-semibold">
-              {{ months[user.month - 1] }}
-            </h3 class="">
-            <span class="is-size-5 has-text-white-ter">{{ user.year }}</span>
-          </div>
-          <div class="column btns-margin">
-            <button class="button is-small is-success is-light download-btn btn-space">PDF</button>
-            <button class="button is-small is-success is-light download-btn">XSLX</button>
+        <div class="col-hover">
+          <div class="columns is-gapless">
+            <div class="column is-three-quarters has-text-centered month-margin">
+              <h3 class="is-size-3 has-text-white-ter has-text-weight-semibold">
+                {{ months[user.month - 1] }}
+              </h3 class="">
+              <span class="is-size-5 has-text-white-ter">{{ user.year }}</span>
+            </div>
+            <div class="column">
+              <div class="dropdown month-dropdown">
+                <div class="dropdown-trigger">
+                  <button class="button is-medium is-light is-outlined">
+                    <span class="icon is-small">
+                      <i class="fas fa-angle-down"></i
+                    </span>
+                  </button>
+                </div>
+                <div class="dropdown-menu">
+                  <div class="dropdown-content">
+                    <a href="#" class="dropdown-item">
+                      PDF
+                    </a>
+                    <a href="#" class="dropdown-item">
+                      XLSX
+                    </a>
+                    <a href="#" class="dropdown-item">
+                      Delete
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

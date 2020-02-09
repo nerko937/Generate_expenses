@@ -35,13 +35,12 @@ body > footer {
     margin-top: 1.5rem;
 }
 
-.btns-margin {
-    margin-top: 0.75rem !important;
-    margin-bottom: 0.75rem !important;
-}
-
 .month-margin {
     margin-left: 0.75rem !important;
+}
+
+.month-dropdown {
+    margin-top: 0.85rem;
 }
 
 .field-body {
