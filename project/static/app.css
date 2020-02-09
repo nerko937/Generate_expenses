@@ -40,7 +40,11 @@ body > footer {
 }
 
 .month-dropdown {
-    margin-top: 0.85rem;
+    margin-top: 1rem;
+}
+
+.month-text-col {
+    margin-bottom: 0.3rem !important;
 }
 
 .field-body {
