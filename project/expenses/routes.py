@@ -16,7 +16,7 @@ def main():
 		month = Month(year=form.year.data, month=form.month.data, user_id=current_user.id)
 		db.session.add(month)
 		db.session.commit()
-		redirect(url_for('expenses.main'))
+		return redirect(url_for('expenses.main'))
 	user_months = Month.query.filter_by(
 		user_id=current_user.id).order_by(Month.year.desc(), Month.month.asc()
 	)
@@ -28,3 +28,12 @@ def main():
 		'main.html', title='Homepage', user_months=user_months, form=form,
 		months=MONTH_LIST, cr_month=CURRENT_MONTH, cr_year=CURRENT_YEAR
 	)
+
+@expenses.route("/delete_month/<month_id>", methods=['GET'])
+@login_required
+def delete_month(month_id):
+	month = Month.query.filter_by(id=month_id).first()
+	if month.user_id == current_user.id:
+		db.session.delete(month)
+		db.session.commit()
+		return redirect(url_for('expenses.main'))
