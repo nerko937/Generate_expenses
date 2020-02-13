@@ -24,6 +24,16 @@ window.addEventListener('DOMContentLoaded', (event) => {
         span.classList.toggle(className)
       })
     })
-
   }
+    
+  // Notification close button event
+  closeBtns = document.querySelectorAll('.notification .delete')
+  if (closeBtns.length) {
+    closeBtns.forEach((element) => {
+      element.addEventListener('click', (event) => {
+        element.parentElement.remove()
+      })
+    })
+  }
+
 })

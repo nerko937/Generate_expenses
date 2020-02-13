@@ -47,6 +47,18 @@
       </div>
     </div>
   </nav>
+  <div class="message-area has-text-centered">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+      <div class="notification is-light is-{{ category }}">
+        <button class="delete"></button>
+        {{ message }}
+      </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+  </div>
   {% block content %}{% endblock %}
   <footer class="footer">
     <div class="is-pulled-right" id="footers-div" style="max-width: 30%;">

@@ -16,12 +16,12 @@ body > footer {
     cursor: default;
 }
 
-#small-content {
-	margin-top: 2rem;
+.message-area {
+    margin: 1.5rem;
 }
 
 #months-content {
-    margin-top: 5rem;
+    margin-top: 3rem;
 }
 
 #forgot-pass {

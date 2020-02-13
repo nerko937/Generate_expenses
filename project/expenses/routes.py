@@ -1,5 +1,5 @@
 from datetime import date
-from flask import Blueprint, render_template, redirect, url_for
+from flask import Blueprint, render_template, redirect, url_for, flash
 from flask_login import current_user, login_required
 from project import db
 from .models import Month
@@ -36,4 +36,8 @@ def delete_month(month_id):
 	if month.user_id == current_user.id:
 		db.session.delete(month)
 		db.session.commit()
+		flash('Month has been deleted!', 'success')
+		return redirect(url_for('expenses.main'))
+	else:
+		flash("You cant delete month that doesn't belongs to you!", 'dange')
 		return redirect(url_for('expenses.main'))
