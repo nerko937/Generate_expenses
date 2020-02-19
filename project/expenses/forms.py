@@ -11,6 +11,6 @@ MONTHS = (
 
 
 class AddMonthForm(FlaskForm):
-	year = IntegerField('Year', validators=[NumberRange(min=1900, max=2500)])
+	year = IntegerField('Year', validators=[DataRequired(), NumberRange(min=1900, max=2500)])
 	month = SelectField('Month', validators=[DataRequired()], choices=MONTHS, coerce=int)
 	submit = SubmitField('Add new')
