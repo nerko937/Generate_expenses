@@ -2,40 +2,42 @@
 {% block content %}
 <form id="months-content" method="POST" action="">
   {{ form.hidden_tag() }}
-  <div class="field is-horizontal"></div>
+  <div class="field is-horizontal">
     <div class="field-body">
-      <p class="control has-icons-left">
-        {% if form.year.errors %}
-          {{ form.year(class="input is-danger is-large", placeholder="Year") }}
-        {% else %}
-          {{ form.year(class="input is-large", placeholder="Year") }}
-        {% endif %}
-        <span class="icon is-small is-left">
-          <i class="fas fa-calendar-alt"></i>
-        </span>
-      </p>
-      <p class="control">
-        {% if form.month.errors %}
-        <span class="select is-large is-danger"></span>
-          {% for error in form.month.errors %}
-            <span class="has-text-danger">{{ error }}</span>
-          {% endfor %}
-        {% else %}
-          <span class="select is-large">
-        {% endif %}
-        {{ form.month(placeholder="Month") }}
-        </span>
-      </p>
+      <div>
+        {% for error in form.year.errors %}
+          <span class="has-text-danger is-pulled-right">{{ error }}</span>
+          <br>
+        {% endfor %}
+      </div>
+        <p class="control has-icons-left">
+          {% if form.year.errors %}
+            {{ form.year(class="input is-danger is-large", placeholder="Year") }}
+          {% else %}
+            {{ form.year(class="input is-large", placeholder="Year") }}
+          {% endif %}
+          <span class="icon is-small is-left">
+            <i class="fas fa-calendar-alt"></i>
+          </span>
+        </p>
+      <div class="has-text-centered">
+        <p class="control">
+          {% if form.month.errors %}
+          <span class="select is-large is-danger">
+          {% else %}
+            <span class="select is-large">
+          {% endif %}
+          {{ form.month(placeholder="Month") }}
+          </span>
+        </p>
+        {% for error in form.month.errors %}
+          <span class="has-text-danger">{{ error }}</span>
+        {% endfor %}
+      </div>
       <p class="control">
         {{ form.submit(class="button is-primary is-large") }}
       </p>
     </div>
-  </div>
-  <div class="has-text-centered">
-    {% for error in form.year.errors %}
-      <span class="has-text-danger">{{ error }}</span>
-      <br>
-    {% endfor %}
   </div>
 </form>
 
