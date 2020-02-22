@@ -17,17 +17,20 @@
             {{ form.year(class="input is-large", placeholder="Year") }}
           {% endif %}
           <span class="icon is-small is-left">
-            <i class="fas fa-calendar-alt"></i>
+            <i class="far fa-calendar"></i>
           </span>
         </p>
-      <div class="has-text-centered">
-        <p class="control">
+      <div class="has-text-centered is-vcentered">
+        <p class="control has-icons-left">
           {% if form.month.errors %}
           <span class="select is-large is-danger">
           {% else %}
             <span class="select is-large">
           {% endif %}
           {{ form.month(placeholder="Month") }}
+          </span>
+          <span class="icon is-small is-left">
+            <i class="far fa-calendar-alt"></i>
           </span>
         </p>
         {% for error in form.month.errors %}
