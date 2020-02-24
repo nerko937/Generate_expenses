@@ -32,7 +32,7 @@ def main():
 @expenses.route("/delete_month/<month_id>", methods=['GET'])
 @login_required
 def delete_month(month_id):
-	month = Month.query.filter_by(id=month_id).first()
+	month = Month.query.filter_by(id=month_id).first_or_404()
 	if month.user_id == current_user.id:
 		db.session.delete(month)
 		db.session.commit()
