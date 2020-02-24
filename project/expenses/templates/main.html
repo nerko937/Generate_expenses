@@ -52,7 +52,7 @@
       {% else %}
       <div class="has-background-primary rounded">
       {% endif %}
-        <div class="col-hover">
+        <div class="col-hover" data-href="{{ url_for('expenses.month', month_id=month.id) }}">
           <div class="columns is-gapless">
             <div class="column is-three-quarters has-text-centered month-margin month-text-col">
               <h3 class="is-size-3 has-text-white-ter has-text-weight-semibold">

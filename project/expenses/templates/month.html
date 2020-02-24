@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+{% block content %}
+<div id="expenses-header">
+  <div class="is-pulled-left">
+    <a href="{{ url_for('expenses.main') }}">
+      <div class="tooltip"">
+        <span class="icon has-text-info is-medium">
+          <i class="fas fa-arrow-left fa-2x"></i>
+        </span>
+        <span class="tooltip-text">Go back</span>
+      </div>
+    </a>
+    <div class="tooltip" id="add-trigger">
+      <span class="icon has-text-success is-medium">
+        <i class="fas fa-plus fa-2x"></i>
+      </span>
+      <span class="tooltip-text">Add new</span>
+    </div>
+  </div>
+  <div class="is-pulled-right">
+    <div class="tooltip">
+      <span class="icon has-text-primary is-medium">
+        <i class="fas fa-file-pdf fa-2x"></i>
+      </span>
+      <span class="tooltip-text">Download PDF</span>
+    </div>
+    <div class="tooltip">
+      <span class="icon has-text-primary is-medium">
+        <i class="fas fa-file-excel fa-2x"></i>
+      </span>
+      <span class="tooltip-text">Download XLSX</span>
+    </div>
+    <div class="tooltip">
+      <a href="{{ url_for('expenses.delete_month', month_id=month.id) }}">
+        <span class="icon has-text-danger is-medium">
+          <i class="fas fa-trash-alt fa-2x"></i>
+        </span>
+      </a>
+      <span class="tooltip-text">Delete month</span>
+    </div>
+  </div>
+</div>
+
+<table class="table is-hoverable is-bordered is-fullwidth">
+	<thead>
+	  <tr>
+      <th>Amount</th>
+      <th>Category</th>
+      <th>Description</th>
+      <th>Actions</th>
+	  </tr>
+  </thead>
+  <tbody>
+    {% for expense in month.expenses %}
+      <tr>
+        <td class="expense-col">{{ expense.amount }}</td>
+        <td class="expense-col">{{ expense.category }}</td>
+        <td class="expense-col is-paddingless">
+          <div class="expense-toggle">
+            {% if expense.short_descr() %}
+            <div class="short">
+              <span class="icon has-text-grey descr-icon">
+                <i class="fas fa-angle-down fa-lg"></i>
+              </span>
+              {{ expense.short_descr() }}
+            </div>
+            <div class="full hidden">
+              <span class="icon has-text-info descr-icon">
+                <i class="fas fa-angle-up fa-lg"></i>
+              </span>
+            {% else %}
+            <div class="single">
+            {% endif %}
+              {{ expense.description }}
+            </div>
+          </div>
+        </td>
+        <td class="has-text-centered">
+          <a href="{{ url_for('expenses.delete_expense', expense_id=expense.id) }}">
+            <span class="icon has-text-grey trash-icon">
+              <i class="fas fa-trash-alt"></i>
+            </span>
+          </a>
+        </td>
+      </tr>
+    {% else %}
+      <tr>
+        <td colspan="4" class="has-text-centered">You didn't add any expenses yet.</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<table class="table is-hoverable is-bordered is-fullwidth">
+  <thead>
+    <tr>
+      {% for elem_key in totals.keys() %}
+        <th class="one-fourth-table-col">{{ elem_key }}</th>
+      {% endfor %}
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      {% for elem_val in totals.values() %}
+        {% if elem_val != 'None' %}
+          <td>{{ elem_val }}</td>
+        {% else %}
+          <td>0</td>
+        {% endif %}
+      {% endfor %}
+    </tr>
+  </tbody>
+</table>
+
+<div class="modal{% if form.errors %} is-active{% endif %}" id="add-modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Add new expense</p>
+      <button class="delete" aria-label="close"></button>
+    </header>
+    <form method="POST" action="">
+      {{ form.hidden_tag() }}
+      <section class="modal-card-body">
+        <div class="field is-grouped is-horizontal is-marginless">
+          <p class="control has-icons-left">
+            {% if form.amount.errors %}
+              {{ form.amount(class="input is-danger", placeholder="Amount") }}
+            {% else %}
+              {{ form.amount(class="input", placeholder="Amount") }}
+            {% endif %}
+            <span class="icon is-small is-left">
+              <i class="far fa-money-bill-alt"></i>
+            </span>
+          </p>
+          <p class="control is-expanded has-icons-left">
+            {% if form.category.errors %}
+            <span class="select is-fullwidth is-danger">
+            {% else %}
+              <span class="select is-fullwidth">
+            {% endif %}
+            {{ form.category(placeholder="Category") }}
+            </span>
+            <span class="icon is-small is-left">
+              <i class="fas fa-file-invoice-dollar"></i>
+            </span>
+          </p>
+        </div>
+        <div class="columns is-marginless">
+          <div class="column has-text-centered">
+            {% for error in form.amount.errors %}
+              <p class="help is-danger center-fix">{{ error }}</p>
+            {% endfor %}
+          </div>
+          <div class="column has-text-centered">
+            {% for error in form.category.errors %}
+              <p class="help is-danger is-marginless">{{ error }}</p>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="field is-horizontal">
+          <div class="field-body">
+            {% if form.description.errors %}
+              {{ form.description(class="textarea is-danger", placeholder="Description") }}
+            {% else %}
+              {{ form.description(class="textarea", placeholder="Description") }}
+            {% endif %}
+          </div>
+        </div>
+      </section>
+      <footer class="modal-card-foot">
+        {{ form.submit(class="button is-primary") }}
+        <button class="button">Cancel</button>
+      </footer>
+    </form>
+  </div>
+</div>
+{% endblock content %}

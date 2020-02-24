@@ -36,4 +36,45 @@ window.addEventListener('DOMContentLoaded', (event) => {
     })
   }
 
+  // Redirect to month page with expenses
+  monthUrls = document.querySelectorAll('.col-hover')
+  if (monthUrls.length) {
+    monthUrls.forEach((element) => {
+      element.addEventListener('click', (event) => {
+        window.location.href = element.dataset.href
+      })
+    })
+  }
+
+  // Show/hide full description
+  toggleContainers = document.querySelectorAll('.short, .full')
+  if (toggleContainers.length) {
+    toggleContainers.forEach((element) => {
+      element.firstElementChild.addEventListener('click', (event) => {
+        (element.previousElementSibling || element.nextElementSibling).classList.toggle('hidden')
+        element.classList.toggle('hidden')
+      })
+    })
+  }
+
+  // Modals close
+  modals = document.querySelectorAll('.modal')
+  if (modals.length) {
+    modals.forEach((modal) => {
+      modal.querySelectorAll('button').forEach((btn) => {
+        btn.addEventListener('click', (event) => {
+          modal.classList.remove('is-active')
+        })
+      })
+    })
+  }
+
+  // Add modal open
+  trigger = document.getElementById('add-trigger')
+  if (trigger) {
+    trigger.addEventListener('click', (event) => {
+      document.getElementById('add-modal').classList.add('is-active')
+    })
+  }
+
 })
