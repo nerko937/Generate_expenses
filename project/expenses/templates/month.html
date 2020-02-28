@@ -76,6 +76,15 @@
           </div>
         </td>
         <td class="has-text-centered">
+          <span
+            class="icon has-text-grey edit-icon"
+            data-id="{{ expense.id }}"
+            data-amount="{{ expense.amount }}"
+            data-category="{{ expense.category }}"
+            data-description="{{ expense.description }}"
+          >
+              <i class="fas fa-pencil-alt"></i>
+          </span>
           <a href="{{ url_for('expenses.delete_expense', expense_id=expense.id) }}">
             <span class="icon has-text-grey trash-icon">
               <i class="fas fa-trash-alt"></i>
@@ -111,67 +120,10 @@
   </tbody>
 </table>
 
-<div class="modal{% if form.errors %} is-active{% endif %}" id="add-modal">
-  <div class="modal-background"></div>
-  <div class="modal-card">
-    <header class="modal-card-head">
-      <p class="modal-card-title">Add new expense</p>
-      <button class="delete" aria-label="close"></button>
-    </header>
-    <form method="POST" action="">
-      {{ form.hidden_tag() }}
-      <section class="modal-card-body">
-        <div class="field is-grouped is-horizontal is-marginless">
-          <p class="control has-icons-left">
-            {% if form.amount.errors %}
-              {{ form.amount(class="input is-danger", placeholder="Amount") }}
-            {% else %}
-              {{ form.amount(class="input", placeholder="Amount") }}
-            {% endif %}
-            <span class="icon is-small is-left">
-              <i class="far fa-money-bill-alt"></i>
-            </span>
-          </p>
-          <p class="control is-expanded has-icons-left">
-            {% if form.category.errors %}
-            <span class="select is-fullwidth is-danger">
-            {% else %}
-              <span class="select is-fullwidth">
-            {% endif %}
-            {{ form.category(placeholder="Category") }}
-            </span>
-            <span class="icon is-small is-left">
-              <i class="fas fa-file-invoice-dollar"></i>
-            </span>
-          </p>
-        </div>
-        <div class="columns is-marginless">
-          <div class="column has-text-centered">
-            {% for error in form.amount.errors %}
-              <p class="help is-danger center-fix">{{ error }}</p>
-            {% endfor %}
-          </div>
-          <div class="column has-text-centered">
-            {% for error in form.category.errors %}
-              <p class="help is-danger is-marginless">{{ error }}</p>
-            {% endfor %}
-          </div>
-        </div>
-        <div class="field is-horizontal">
-          <div class="field-body">
-            {% if form.description.errors %}
-              {{ form.description(class="textarea is-danger", placeholder="Description") }}
-            {% else %}
-              {{ form.description(class="textarea", placeholder="Description") }}
-            {% endif %}
-          </div>
-        </div>
-      </section>
-      <footer class="modal-card-foot">
-        {{ form.submit(class="button is-primary") }}
-        <button class="button">Cancel</button>
-      </footer>
-    </form>
-  </div>
-</div>
+{% with form = add_form, case = 'add' %}
+  {% include 'form_modal.html' %}
+{% endwith %}
+{% with form = update_form, case = 'update' %}
+  {% include 'form_modal.html' %}
+{% endwith %}
 {% endblock content %}

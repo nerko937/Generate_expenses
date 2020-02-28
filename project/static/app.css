@@ -132,6 +132,11 @@ body > footer {
     cursor: pointer;
 }
 
+.edit-icon:hover {
+    color: hsl(217, 71%, 53%) !important;
+    cursor: pointer;
+}
+
 .one-fourth-table-col {
     width: 25%;
 }

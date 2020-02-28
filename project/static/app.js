@@ -77,4 +77,19 @@ window.addEventListener('DOMContentLoaded', (event) => {
     })
   }
 
+  // Edit expense button actions
+  editBtns = document.querySelectorAll('.edit-icon')
+  if (editBtns.length) {
+    editBtns.forEach((element) => {
+      element.addEventListener('click', (event) => {
+        document.getElementById('update-id').value = element.dataset.id
+        document.getElementById('update-amount').value = element.dataset.amount
+        document.getElementById('update-category').value = element.dataset.category
+        document.getElementById('update-description').value = element.dataset.description
+        document.getElementById('update-modal').classList.add('is-active')
+        console.log(element.dataset.choices)
+      })
+    })  
+  }
+
 })

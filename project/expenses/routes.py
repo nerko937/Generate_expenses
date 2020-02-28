@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, redirect, url_for, flash
 from flask_login import current_user, login_required
 from project import db
 from .models import Month, Expense
-from .forms import MONTHS, CATEGORIES, AddMonthForm, AddExpenseForm
+from .forms import MONTHS, CATEGORIES, AddMonthForm, AddExpenseForm, UpdateExpenseForm
 
 
 expenses = Blueprint('expenses', __name__, template_folder='templates')
@@ -46,13 +46,22 @@ def delete_month(month_id):
 @login_required
 def month(month_id):
 	month = Month.query.filter_by(id=month_id).first_or_404()
-	form = AddExpenseForm()
-	if form.validate_on_submit():
+	add_form = AddExpenseForm()
+	if add_form.submit_add.data and add_form.validate():
 		expense = Expense(
-			amount=form.amount.data, category=form.category.data,
-			description=form.description.data, month_id=month_id
+			amount=add_form.amount.data, category=add_form.category.data,
+			description=add_form.description.data, month_id=month_id
 		)
 		db.session.add(expense)
+		db.session.commit()
+		return redirect(url_for('expenses.month', month_id=month.id))
+	update_form = UpdateExpenseForm()
+	if update_form.submit_update.data and update_form.validate():
+		expense = Expense.query.filter_by(id=update_form.expense_id.data).first()
+		
+		expense.amount = update_form.amount.data
+		expense.category = update_form.category.data
+		expense.description = update_form.description.data
 		db.session.commit()
 		return redirect(url_for('expenses.month', month_id=month.id))
 	if month.user_id == current_user.id:
@@ -61,7 +70,8 @@ def month(month_id):
 		totals = {key: str(total.filter_by(category=key).first()[0]) for key in ROUTE_CATEGORIES}
 		totals['Total'] = str(total.first()[0])
 		return render_template(
-			'month.html', title='Expenses', month=month, totals=totals, form=form
+			'month.html', title='Expenses', month=month, totals=totals,
+			add_form=add_form, update_form=update_form
 		)
 	else:
 		flash("You can't view a month that doesn't belongs to you!!", 'danger')

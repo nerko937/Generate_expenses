@@ -1,6 +1,8 @@
 from decimal import ROUND_HALF_EVEN
 from flask_wtf import FlaskForm
-from wtforms import IntegerField, SelectField, SubmitField, DecimalField, StringField
+from wtforms import (
+	IntegerField, SelectField, SubmitField, DecimalField, StringField, HiddenField
+)
 from wtforms.validators import DataRequired, NumberRange
 from wtforms.widgets import TextArea
 
@@ -12,7 +14,7 @@ MONTHS = (
 )
 
 CATEGORIES = (
-	(1, 'Bills'), (2, 'Entertainment'), (3, 'Food')
+	('Bills', 'Bills'), ('Entertainment', 'Entertainment'), ('Food', 'Food')
 )
 
 
@@ -22,7 +24,7 @@ class AddMonthForm(FlaskForm):
 	submit = SubmitField('Add new')
 
 
-class AddExpenseForm(FlaskForm):
+class ExpeneFormMixin():
 	amount = DecimalField(
 		'Amount',
 		places=2,
@@ -32,7 +34,15 @@ class AddExpenseForm(FlaskForm):
 		]
 	)
 	category = SelectField(
-		'Category', validators=[DataRequired()], choices=CATEGORIES, coerce=int
+		'Category', validators=[DataRequired()], choices=CATEGORIES
 	)
 	description = StringField('Description', widget=TextArea())
-	submit = SubmitField('Save')
+
+
+class AddExpenseForm(FlaskForm, ExpeneFormMixin):
+	submit_add = SubmitField('Save')
+
+
+class UpdateExpenseForm(FlaskForm, ExpeneFormMixin):
+	submit_update = SubmitField('Save')
+	expense_id = HiddenField('Expense ID', id='update-id')

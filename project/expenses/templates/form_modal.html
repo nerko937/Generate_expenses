@@ -1,0 +1,74 @@
+<div class="modal{% if form.errors %} is-active{% endif %}" id="{{ case }}-modal">
+	<div class="modal-background"></div>
+	<div class="modal-card">
+	  <header class="modal-card-head">
+      <p class="modal-card-title">{{ case[0]|upper}}{{case[1:] }} expense</p>
+      <button class="delete" aria-label="close"></button>
+	  </header>
+	  <form method="POST" action="{% if case == 'update' %}#{%endif%}">
+      {{ form.hidden_tag() }}
+      <section class="modal-card-body">
+        <div class="field is-grouped is-horizontal is-marginless">
+          <p class="control has-icons-left">
+            {% if form.amount.errors %}
+              {{ form.amount(class="input is-danger", placeholder="Amount", id=case + '-amount') }}
+            {% else %}
+              {{ form.amount(class="input", placeholder="Amount", id=case + '-amount') }}
+            {% endif %}
+            <span class="icon is-small is-left">
+              <i class="far fa-money-bill-alt"></i>
+            </span>
+          </p>
+          <p class="control is-expanded has-icons-left">
+            {% if form.category.errors %}
+            <span class="select is-fullwidth is-danger">
+            {% else %}
+            <span class="select is-fullwidth">
+            {% endif %}
+              {{ form.category(placeholder="Category", id=case + '-category') }}
+            </span>
+            <span class="icon is-small is-left">
+              <i class="fas fa-file-invoice-dollar"></i>
+            </span>
+          </p>
+        </div>
+        <div class="columns is-marginless">
+          <div class="column has-text-centered">
+            {% for error in form.amount.errors %}
+              <p class="help is-danger center-fix">{{ error }}</p>
+            {% endfor %}
+          </div>
+          <div class="column has-text-centered">
+            {% for error in form.category.errors %}
+              <p class="help is-danger is-marginless">{{ error }}</p>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="field is-horizontal">
+          <div class="field-body">
+            {% if form.description.errors %}
+              {{ form.description(
+                class="textarea is-danger", placeholder="Description", id=case + '-description'
+              ) }}
+            {% else %}
+              {{ form.description(
+                class="textarea", placeholder="Description", id=case + '-description'
+              ) }}
+            {% endif %}
+          </div>
+        </div>
+      </section>
+      <footer class="modal-card-foot">
+        {% if case == 'update' %}
+          {% for error in form.expense_id.errors %}
+            <p class="help is-danger">{{ error }}</p>
+          {% endfor %}
+          {{ form.submit_update(class="button is-primary") }}
+        {% else %}
+          {{ form.submit_add(class="button is-primary") }}
+        {% endif %}
+        <button class="button" type="button">Cancel</button>
+      </footer>
+	  </form>
+	</div>
+</div>
