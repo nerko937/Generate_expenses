@@ -23,7 +23,8 @@ class Month(db.Model):
 	year = db.Column(db.Integer, nullable=False)
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 	expenses = db.relationship(
-		'Expense', backref='month_related', lazy=True, cascade='all, delete-orphan'
+		'Expense', backref='month_related', lazy=True,
+		cascade='all, delete-orphan', order_by=('Expense.category')
 	)
 
 	def __repr__(self):

@@ -24,12 +24,14 @@
       </span>
       <span class="tooltip-text">Download PDF</span>
     </div>
-    <div class="tooltip">
-      <span class="icon has-text-primary is-medium">
-        <i class="fas fa-file-excel fa-2x"></i>
-      </span>
-      <span class="tooltip-text">Download XLSX</span>
-    </div>
+    <a href="{{ url_for('expenses.download_xlsx', month_id=month.id) }}">
+      <div class="tooltip">
+        <span class="icon has-text-primary is-medium">
+          <i class="fas fa-file-excel fa-2x"></i>
+        </span>
+        <span class="tooltip-text">Download XLSX</span>
+      </div>
+    </a>
     <div class="tooltip">
       <a href="{{ url_for('expenses.delete_month', month_id=month.id) }}">
         <span class="icon has-text-danger is-medium">

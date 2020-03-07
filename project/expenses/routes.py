@@ -1,9 +1,10 @@
 from datetime import date
-from flask import Blueprint, render_template, redirect, url_for, flash
+from flask import Blueprint, render_template, redirect, url_for, flash, send_file
 from flask_login import current_user, login_required
 from project import db
 from .models import Month, Expense
-from .forms import MONTHS, CATEGORIES, AddMonthForm, AddExpenseForm, UpdateExpenseForm
+from .forms import AddMonthForm, AddExpenseForm, UpdateExpenseForm
+from .utils import MONTHS, CATEGORIES, generate_xlsx, get_file
 
 
 expenses = Blueprint('expenses', __name__, template_folder='templates')
@@ -90,3 +91,16 @@ def delete_expense(expense_id):
 	else:
 		flash("You can't delete expense that doesn't belongs to you!", 'danger')
 		return redirect(url_for('expenses.month', month_id=month.id))
+
+@expenses.route("/download_xlsx/<month_id>", methods=['GET'])
+@login_required
+def download_xlsx(month_id):
+	month = Month.query.filter_by(id=month_id).first_or_404()
+	if month.user_id == current_user.id:
+		path_to_new_file = generate_xlsx(month)
+		file = get_file(path_to_new_file)
+		file_name = f'{MONTHS[month.month][1]}{month.year}.xlsx'
+		return send_file(file, attachment_filename=file_name, as_attachment=True, cache_timeout=-1)
+	else:
+		flash("That month is not yours!", 'danger')
+		return redirect(url_for('expenses.main'))

@@ -5,17 +5,7 @@ from wtforms import (
 )
 from wtforms.validators import DataRequired, NumberRange
 from wtforms.widgets import TextArea
-
-
-MONTHS = (
-	(1, 'January'), (2, 'February'), (3, 'March'), (4, 'April'),
-	(5, 'May'), (6, 'June'), (7, 'July'), (8, 'August'),
-	(9, 'September'), (10, 'October'), (11, 'November'), (12, 'December')
-)
-
-CATEGORIES = (
-	('Bills', 'Bills'), ('Entertainment', 'Entertainment'), ('Food', 'Food')
-)
+from .utils import MONTHS, CATEGORIES
 
 
 class AddMonthForm(FlaskForm):
