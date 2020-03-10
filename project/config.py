@@ -1,7 +1,6 @@
 from .secret import SECRET_KEY, SQLALCHEMY_DATABASE_URI, MAIL_USERNAME, MAIL_PASSWORD
 
 
-
 class Config:
     CSRF_ENABLED = True
     DEBUG = False
