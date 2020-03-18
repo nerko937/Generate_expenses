@@ -67,11 +67,11 @@ def month(month_id):
 		return redirect(url_for('expenses.month', month_id=month.id))
 	if month.user_id == current_user.id:
 		ROUTE_CATEGORIES = [el[1] for el in CATEGORIES]
-		total = db.session.query(db.func.sum(Expense.amount)).filter_by(month_id=month_id)
-		totals = {key: str(total.filter_by(category=key).first()[0]) for key in ROUTE_CATEGORIES}
-		totals['Total'] = str(total.first()[0])
+		summary = db.session.query(db.func.sum(Expense.amount)).filter_by(month_id=month_id)
+		sums = {key: str(summary.filter_by(category=key).first()[0]) for key in ROUTE_CATEGORIES}
+		sums['Summary'] = str(summary.first()[0])
 		return render_template(
-			'month.html', title='Expenses', month=month, totals=totals,
+			'month.html', title='Expenses', month=month, sums=sums,
 			add_form=add_form, update_form=update_form
 		)
 	else:

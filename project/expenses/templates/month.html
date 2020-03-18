@@ -104,14 +104,14 @@
 <table class="table is-hoverable is-bordered is-fullwidth">
   <thead>
     <tr>
-      {% for elem_key in totals.keys() %}
+      {% for elem_key in sums.keys() %}
         <th class="one-fourth-table-col">{{ elem_key }}</th>
       {% endfor %}
     </tr>
   </thead>
   <tbody>
     <tr>
-      {% for elem_val in totals.values() %}
+      {% for elem_val in sums.values() %}
         {% if elem_val != 'None' %}
           <td>{{ elem_val }}</td>
         {% else %}
