@@ -7,14 +7,17 @@ class Expense(db.Model):
 	amount = db.Column(db.Numeric(6, 2))
 	month_id = db.Column(db.Integer, db.ForeignKey('month.id'), nullable=False)
 	description = db.Column(db.Text())
+	short_descr = db.Column(db.String(83), nullable=True)
+	has_short_descr = db.Column(db.Boolean(), default=False, nullable=False)
 
 	def __repr__(self):
 		return f"Expense('{self.id}', '{self.amount}')"
-
-	def short_descr(self):
+	
+	def __init__(self, **kwargs):
+		super(Expense, self).__init__(**kwargs)
 		if self.description and len(self.description) > 80:
-			return self.description[:80] + '...'
-		return None
+			self.short_descr = self.description[:80] + '...'
+			self.has_short_descr = True
 
 
 class Month(db.Model):
