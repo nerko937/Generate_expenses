@@ -18,12 +18,14 @@
     </div>
   </div>
   <div class="is-pulled-right">
-    <div class="tooltip">
-      <span class="icon has-text-primary is-medium">
-        <i class="fas fa-file-pdf fa-2x"></i>
-      </span>
-      <span class="tooltip-text">Download PDF</span>
-    </div>
+    <a href="{{ url_for('expenses.download_pdf', month_id=month.id) }}">
+      <div class="tooltip">
+        <span class="icon has-text-primary is-medium">
+          <i class="fas fa-file-pdf fa-2x"></i>
+        </span>
+        <span class="tooltip-text">Download PDF</span>
+      </div>
+    </a>
     <a href="{{ url_for('expenses.download_xlsx', month_id=month.id) }}">
       <div class="tooltip">
         <span class="icon has-text-primary is-medium">

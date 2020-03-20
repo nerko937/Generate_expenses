@@ -4,7 +4,7 @@ from flask_login import current_user, login_required
 from project import db
 from .models import Month, Expense
 from .forms import AddMonthForm, AddExpenseForm, UpdateExpenseForm
-from .utils import MONTHS, CATEGORIES, generate_xlsx, get_file
+from .utils import MONTHS, CATEGORIES, generate_xlsx, generate_pdf, get_file
 
 
 expenses = Blueprint('expenses', __name__, template_folder='templates')
@@ -69,7 +69,7 @@ def month(month_id):
 		ROUTE_CATEGORIES = [el[1] for el in CATEGORIES]
 		summary = db.session.query(db.func.sum(Expense.amount)).filter_by(month_id=month_id)
 		sums = {key: str(summary.filter_by(category=key).first()[0]) for key in ROUTE_CATEGORIES}
-		sums['Summary'] = str(summary.first()[0])
+		sums['Total'] = str(summary.first()[0])
 		return render_template(
 			'month.html', title='Expenses', month=month, sums=sums,
 			add_form=add_form, update_form=update_form
@@ -100,6 +100,19 @@ def download_xlsx(month_id):
 		path_to_new_file = generate_xlsx(month)
 		file = get_file(path_to_new_file)
 		file_name = f'{MONTHS[month.month][1]}{month.year}.xlsx'
+		return send_file(file, attachment_filename=file_name, as_attachment=True, cache_timeout=-1)
+	else:
+		flash("That month is not yours!", 'danger')
+		return redirect(url_for('expenses.main'))
+
+@expenses.route("/download_pdf/<month_id>", methods=['GET'])
+@login_required
+def download_pdf(month_id):
+	month = Month.query.filter_by(id=month_id).first_or_404()
+	if month.user_id == current_user.id:
+		path_to_new_file = generate_pdf(month)
+		file = get_file(path_to_new_file)
+		file_name = f'{MONTHS[month.month][1]}{month.year}.pdf'
 		return send_file(file, attachment_filename=file_name, as_attachment=True, cache_timeout=-1)
 	else:
 		flash("That month is not yours!", 'danger')

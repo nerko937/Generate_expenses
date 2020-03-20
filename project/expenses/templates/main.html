@@ -71,7 +71,9 @@
                 </div>
                 <div class="dropdown-menu">
                   <div class="dropdown-content">
-                    <a href="#" class="dropdown-item">
+                    <a
+                      href="{{ url_for('expenses.download_pdf', month_id=month.id) }}"
+                      class="dropdown-item">
                       PDF
                     </a>
                     <a
