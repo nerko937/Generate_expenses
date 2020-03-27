@@ -1,6 +1,7 @@
 import os
 import io
 import datetime
+import math
 
 from flask import current_app
 import xlsxwriter
@@ -32,17 +33,18 @@ def generate_xlsx(month):
     :param month: Month model instance
     :return: path to new file'''
     # starter
-    NOW = str(datetime.datetime.now())
     file_path = os.path.join(DOWNLOADS_PATH, f'{month.user_id}.xlsx')
     workbook = xlsxwriter.Workbook(file_path)
     worksheet = workbook.add_worksheet()
+    worksheet.set_column(1, 2, 13)
 
     # format variables
     bold = workbook.add_format({'bold': True})
-    title = workbook.add_format({'center_across': True, 'bold': True})
-    print(f'mjesionc{MONTHS[month.month][1]}')
+    title = workbook.add_format({'bold': 1, 'align': 'center'})
+    vcenter = workbook.add_format({'valign': 'vcenter'})
+
     # title and headers
-    worksheet.write('A1:C1', f'{MONTHS[month.month][0]} {month.year}', title)
+    worksheet.merge_range('A1:C1', f'{MONTHS[month.month][0]} {month.year}', title)
     worksheet.write('A2', 'Amount', bold)
     worksheet.write('B2', 'Category', bold)
     worksheet.write('C2', 'Description', bold)
@@ -52,9 +54,17 @@ def generate_xlsx(month):
     cr_category = ''
     categories_ranges = []  # list of lists with category name and coordinates for sum count
     for expense in month.expenses:
-        worksheet.write(row, 0, expense.amount)
-        worksheet.write(row, 1, expense.category)
-        worksheet.write(row, 2, expense.description)
+        height = 20
+        if len(expense.description) > 150:
+            height = math.ceil(len(expense.description) / 150) * 8
+            worksheet.set_row(row, height)   # set more row height
+
+        # write row
+        worksheet.write(row, 0, expense.amount, vcenter)
+        worksheet.write(row, 1, expense.category, vcenter)
+        worksheet.insert_textbox(
+            row, 2, expense.description, {'width': 1000, 'height': height }
+        )
 
         # categories_ranges appends
         if expense.category != cr_category:
