@@ -109,7 +109,7 @@ def reset_password(token):
 # 			for _ in range(r.randint(10, 20)):
 # 				exp = Expense(
 # 					category=r.choice(cat_choices),
-# 					amount=r.randint(50, 1001),
+# 					amount=r.uniform(15, 1500),
 # 					month_id=month.id,
 # 					description=r.choice(desc_choices)
 # 				)
