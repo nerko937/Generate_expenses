@@ -54,7 +54,7 @@ def generate_xlsx(month):
     cr_category = ''
     categories_ranges = []  # list of lists with category name and coordinates for sum count
     for expense in month.expenses:
-        height = 20
+        height = 14
         if len(expense.description) > 150:
             height = math.ceil(len(expense.description) / 150) * 8
             worksheet.set_row(row, height)   # set more row height
@@ -63,7 +63,7 @@ def generate_xlsx(month):
         worksheet.write(row, 0, expense.amount, vcenter)
         worksheet.write(row, 1, expense.category, vcenter)
         worksheet.insert_textbox(
-            row, 2, expense.description, {'width': 1000, 'height': height }
+            row, 2, expense.description, {'width': 1000, 'height': height * 1.3}
         )
 
         # categories_ranges appends
