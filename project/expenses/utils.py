@@ -6,7 +6,7 @@ import math
 from flask import current_app
 import xlsxwriter
 from reportlab.lib import colors
-from reportlab.platypus import SimpleDocTemplate, Paragraph
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 from reportlab.platypus.tables import Table, TableStyle
 from reportlab.lib.styles import getSampleStyleSheet
 
@@ -93,8 +93,7 @@ def generate_pdf(month):
     '''Generates pdf file in project/downloads directory
     :param month: Month model instance
     :return: path to new file'''
-    # data aka body of pdf
-    data = []
+    data = []   # data aka body of pdf
     
     # paragraph styles
     stylesheet = getSampleStyleSheet()
@@ -102,61 +101,60 @@ def generate_pdf(month):
     title_style = stylesheet['Heading1']
     title_style.alignment = 1
 
-    # title
-    title = Paragraph(f'{MONTHS[month.month][1]} {month.year}', title_style)
+    title = Paragraph(f'{MONTHS[month.month][1]} {month.year}', title_style)    # title
     data.append(title)
 
-    # collecting and sorting sums to fit 3-column grid
-    sums_headers, sums_values, sums_headers_chunked, sums_values_chunked = [], [], [], []
-    UNPACKED_CATEGORIES = [el[1] for el in CATEGORIES]
-    summary = db.session.query(db.func.sum(Expense.amount)).filter_by(month_id=month.id)
-    for category in UNPACKED_CATEGORIES:
-        sums_headers.append(Paragraph(f'<b>{category}</b>', normal_style))
-        sums_values.append(summary.filter_by(category=category).first()[0])
-    sums_headers.append(Paragraph('<b>Total</b>', normal_style))
-    sums_values.append(summary.first()[0])
-    for i in range(0, len(sums_headers), 3):
-        sums_headers_chunked.append(sums_headers[i:i + 3])
-        sums_values_chunked.append(sums_values[i:i + 3])
-    sums_sorted = []
-    for i in range (len(sums_headers_chunked)):
-        sums_sorted.append(sums_headers_chunked[i])
-        sums_sorted.append(sums_values_chunked[i])
+    data.append(Spacer(500, 15))                                                # spacer
 
     # data for table
     table_data = [
         [
             Paragraph('<b>Amount</b>', normal_style),
-            Paragraph('<b>Category</b>', normal_style),                             # headers
+            Paragraph('<b>Category</b>', normal_style),                         # headers
             Paragraph('<b>Description</b>', normal_style)
-        ],
-        *[(exp.amount, exp.category, exp.short_descr) for exp in month.expenses],   # expenses
-        *sums_sorted                                                                # sums aka. summary
+        ],                                                                      # expenses
+        *[(exp.amount, exp.category, Paragraph(exp.description, normal_style)) for exp in month.expenses],
     ]
 
     # styles for table
-    summary_backgrounds = [
-        ('BACKGROUND', (0,-i), [-1,-i], colors.lavenderblush)
-        for i in range(1, len(sums_sorted) + 1) if i % 2 == 0
-    ]
-    coord = -3                              # this removes background color from empty headers cells
-    last_list_len = len(sums_sorted[-1])
-    if last_list_len == 2:
-        coord = -2
-    if last_list_len == 3:
-        coord = -1
-    summary_backgrounds[0][2][0] = coord
     styles = TableStyle([
         ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
         ('BOX', (0,0), (-1,-1), 0.25, colors.black),
         ('BACKGROUND', (0,0), (-1,0), colors.lavenderblush),
-        *summary_backgrounds
     ])
 
-    # build and appen table
-    table = Table(table_data)
+    # build and append table
+    table = Table(table_data, (60, 80, 350))
     table.setStyle(styles)
     data.append(table)
+
+    data.append(Spacer(500, 30))    # spacer
+
+    # preparing summary data
+    CAT_NAMES = [el[1] for el in CATEGORIES]
+    summary = db.session.query(db.func.sum(Expense.amount)).filter_by(month_id=month.id)
+    sums = [
+        (summary.filter_by(category=c).first()[0], c) for c in CAT_NAMES
+    ]
+    sums.append((summary.first()[0], 'Total'))
+
+    # summary table data
+    sum_table_data = [
+        [Paragraph('<b>Total Amount</b>', normal_style), Paragraph('<b>Category</b>', normal_style)],
+        *sums
+    ]
+
+    # summary table styles
+    sum_styles = TableStyle([
+        ('INNERGRID', (0,0), (-1,-1), 0.25, colors.black),
+        ('BOX', (0,0), (-1,-1), 0.25, colors.black),
+        ('BACKGROUND', (0,0), (-1,0), colors.lavenderblush)
+    ])
+
+    # build and append table
+    sum_table = Table(sum_table_data)
+    sum_table.setStyle(sum_styles)
+    data.append(sum_table)
 
     # build pdf
     file_path = os.path.join(DOWNLOADS_PATH, f'{month.user_id}.pdf')
