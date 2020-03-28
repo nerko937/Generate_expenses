@@ -92,6 +92,7 @@ def reset_password(token):
 
 
 # import random as r
+# from project.expenses.models import Month, Expense
 # 	desc_choices = (
 # 		'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit.',
 # 		'Consectetur adipiscing elit. Duis aliquet diam eu neque dignissim pharetra. Etiam lobortis luctus mi, vel lobortis dui consequat id. Quisque id condimentum ante. Suspendisse id diam et purus convallis ornare vel a nunc. Sed porttitor commodo risus, in tempus justo ultricies sit amet. Etiam scelerisque.',

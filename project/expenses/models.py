@@ -8,25 +8,19 @@ class Expense(db.Model):
 	month_id = db.Column(db.Integer, db.ForeignKey('month.id'), nullable=False)
 	description = db.Column(db.Text())
 	short_descr = db.Column(db.String(83), nullable=True)
-	multiline_descr = db.Column(db.Text())
 
 	def __repr__(self):
 		return f"Expense('{self.id}', '{self.amount}')"
 	
 	def __init__(self, **kwargs):
 		super(Expense, self).__init__(**kwargs)
-		self.set_multiline_and_short_descr()
+		self.set_short_descr()
 	
-	def set_multiline_and_short_descr(self):
+	def set_short_descr(self):
 		if self.description and len(self.description) > 80:
 			self.short_descr = self.description[:80] + '...'
-			splitted = self.description.split(' ')
-			for i in range(5, len(splitted), 6):
-				splitted.insert(i, '<br/>')
-			self.multiline_descr = ' '.join(splitted)
 		else:
 			self.short_descr = None
-			self.multiline_descr = ''
 
 
 class Month(db.Model):

@@ -62,7 +62,7 @@ def month(month_id):
 		expense.amount = update_form.amount.data
 		expense.category = update_form.category.data
 		expense.description = update_form.description.data
-		expense.set_multiline_and_short_descr()
+		expense.set_short_descr()
 		db.session.commit()
 		return redirect(url_for('expenses.month', month_id=month.id))
 	if month.user_id == current_user.id:
