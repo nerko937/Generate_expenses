@@ -44,7 +44,7 @@ def generate_xlsx(month):
     vcenter = workbook.add_format({'valign': 'vcenter'})
 
     # title and headers
-    worksheet.merge_range('A1:C1', f'{MONTHS[month.month][0]} {month.year}', title)
+    worksheet.merge_range('A1:C1', f'{MONTHS[month.month][1]} {month.year}', title)
     worksheet.write('A2', 'Amount', bold)
     worksheet.write('B2', 'Category', bold)
     worksheet.write('C2', 'Description', bold)
