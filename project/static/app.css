@@ -86,6 +86,20 @@ body > footer {
     margin-bottom: 1rem;
 }
 
+#buttons-left {
+    display: flex;
+    justify-content: flex-start;
+    height: 100%;
+    align-items: flex-end;
+}
+
+#buttons-right {
+    display: flex;
+    justify-content: flex-end;
+    height: 100%;
+    align-items: flex-end;
+}
+
 .expense-header-cols {
     vertical-align: bottom;
 }

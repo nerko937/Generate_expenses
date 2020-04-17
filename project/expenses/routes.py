@@ -70,9 +70,10 @@ def month(month_id):
 		summary = db.session.query(db.func.sum(Expense.amount)).filter_by(month_id=month_id)
 		sums = {key: str(summary.filter_by(category=key).first()[0]) for key in ROUTE_CATEGORIES}
 		sums['Total'] = str(summary.first()[0])
+		month_title = f'{MONTHS[month.month - 1][1]} {month.year}'
 		return render_template(
 			'month.html', title='Expenses', month=month, sums=sums,
-			add_form=add_form, update_form=update_form
+			add_form=add_form, update_form=update_form, month_title=month_title
 		)
 	else:
 		flash("You can't view a month that doesn't belongs to you!!", 'danger')
