@@ -1,1 +1,9 @@
-# This is new version of project and im currently working on it. To see old version switch to branch: `old_version`.
+# Generate_expenses
+Web app for storing and showing personal expenses.
+
+Uses Flask, Bulma, XlsxWritter and ReportLab
+
+![](preview_images/login.png)
+![](preview_images/months.png)
+![](preview_images/expenses.png)
+![](preview_images/pdf.png)
