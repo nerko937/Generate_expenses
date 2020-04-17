@@ -164,16 +164,3 @@ def generate_pdf(month):
     doc = SimpleDocTemplate(file_path)
     doc.build(data)
     return file_path
-
-def get_file(file_path):
-    '''Puts file in memory, removes the one provided by path, returns the memory one
-    file_path: string
-    :return: file for download'''
-    return_data = io.BytesIO()
-    with open(file_path, 'rb') as fo:
-        return_data.write(fo.read())
-    return_data.seek(0)
-
-    os.remove(file_path)
-
-    return return_data
