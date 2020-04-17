@@ -47,25 +47,25 @@ def delete_month(month_id):
 @login_required
 def month(month_id):
 	month = Month.query.filter_by(id=month_id).first_or_404()
-	add_form = AddExpenseForm()
-	if add_form.submit_add.data and add_form.validate():
-		expense = Expense(
-			amount=add_form.amount.data, category=add_form.category.data,
-			description=add_form.description.data, month_id=month_id
-		)
-		db.session.add(expense)
-		db.session.commit()
-		return redirect(url_for('expenses.month', month_id=month.id))
-	update_form = UpdateExpenseForm()
-	if update_form.submit_update.data and update_form.validate():
-		expense = Expense.query.filter_by(id=update_form.expense_id.data).first()
-		expense.amount = update_form.amount.data
-		expense.category = update_form.category.data
-		expense.description = update_form.description.data
-		expense.set_short_descr()
-		db.session.commit()
-		return redirect(url_for('expenses.month', month_id=month.id))
 	if month.user_id == current_user.id:
+		add_form = AddExpenseForm()
+		if add_form.submit_add.data and add_form.validate():
+			expense = Expense(
+				amount=add_form.amount.data, category=add_form.category.data,
+				description=add_form.description.data, month_id=month_id
+			)
+			db.session.add(expense)
+			db.session.commit()
+			return redirect(url_for('expenses.month', month_id=month.id))
+		update_form = UpdateExpenseForm()
+		if update_form.submit_update.data and update_form.validate():
+			expense = Expense.query.filter_by(id=update_form.expense_id.data).first()
+			expense.amount = update_form.amount.data
+			expense.category = update_form.category.data
+			expense.description = update_form.description.data
+			expense.set_short_descr()
+			db.session.commit()
+			return redirect(url_for('expenses.month', month_id=month.id))
 		ROUTE_CATEGORIES = [el[1] for el in CATEGORIES]
 		summary = db.session.query(db.func.sum(Expense.amount)).filter_by(month_id=month_id)
 		sums = {key: str(summary.filter_by(category=key).first()[0]) for key in ROUTE_CATEGORIES}
