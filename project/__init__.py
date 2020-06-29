@@ -1,3 +1,5 @@
+import time
+import psycopg2
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
@@ -5,6 +7,7 @@ from flask_login import LoginManager
 from flask_mail import Mail
 from flask_talisman import Talisman
 from .config import DevelopmentConfig
+from .secret import DB
 
 
 db = SQLAlchemy()
@@ -42,3 +45,15 @@ def create_app(config_class=DevelopmentConfig):
     app.register_blueprint(expenses)
 
     return app
+
+def wait_for_db():
+    while True:
+        try:
+            conn = psycopg2.connect(
+                f"dbname={DB['db']} user={DB['user']} host={DB['host']} port={DB['port']} password={DB['pw']}"
+            )
+            print('connected')
+            break
+        except Exception as ex:
+            print(ex)
+            time.sleep(0.5)
