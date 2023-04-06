@@ -1,0 +1,15 @@
+# md files
+readme.md
+preview_images
+
+# git files
+.git
+.gitignore
+
+# docker files
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# cache
+.idea
